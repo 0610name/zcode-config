@@ -17,12 +17,17 @@ and layout preserved). Full API docs: https://doc2x.noedgeai.com/help/zh-cn/
 
 ## Prerequisites
 
-The API key is read from the `DOC2X_API_KEY` environment variable. If it is
-missing, tell the user how to set it up (do not ask them to paste the key
-into the conversation if avoidable):
+The API key is read from the environment variable `DOC2X_API_KEY` first,
+then from the shared local credentials file `C:\Users\DELL\.zcode\credentials.json`
+(git-ignored; other skills put their keys there too). If the key is missing,
+tell the user to edit that file once — do not ask them to paste the key into
+the conversation:
 
-1. Get a key at https://open.noedgeai.com (format `sk-xxx`)
-2. `setx DOC2X_API_KEY "sk-xxx"` and restart the terminal
+```json
+{ "DOC2X_API_KEY": "sk-xxx" }
+```
+
+Keys are obtained at https://open.noedgeai.com (format `sk-xxx`).
 
 ## Usage
 

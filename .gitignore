@@ -3,3 +3,4 @@ v2/
 workspace/
 *.log
 __pycache__/
+credentials.json

@@ -12,6 +12,7 @@ API docs: https://doc2x.noedgeai.com/help/zh-cn/
 import argparse
 import base64
 import io
+import json
 import os
 import sys
 import time
@@ -20,6 +21,8 @@ import zipfile
 import requests
 
 BASE_URL = "https://v2.doc2x.noedgeai.com"
+# Shared local credentials file (git-ignored); future skills can reuse it.
+CREDENTIALS_FILE = os.path.join(os.path.expanduser("~"), ".zcode", "credentials.json")
 PDF_EXTS = {".pdf"}
 IMG_EXTS = {".jpg", ".jpeg", ".png"}
 POLL_INTERVAL = 2
@@ -145,6 +148,18 @@ def write_result(content, assets, out_dir, stem):
     return out_dir
 
 
+def load_api_key(name):
+    """Read an API key: environment variable first, then credentials.json."""
+    key = os.environ.get(name)
+    if key:
+        return key
+    try:
+        with open(CREDENTIALS_FILE, encoding="utf-8") as f:
+            return (json.load(f) or {}).get(name) or None
+    except FileNotFoundError:
+        return None
+
+
 def main():
     parser = argparse.ArgumentParser(description="Convert PDF/images via Doc2X API")
     parser.add_argument("file", help="PDF 或图片文件路径")
@@ -155,11 +170,12 @@ def main():
                         help="解析模型（仅 PDF 有效）")
     args = parser.parse_args()
 
-    api_key = os.environ.get("DOC2X_API_KEY")
+    api_key = load_api_key("DOC2X_API_KEY")
     if not api_key:
-        sys.exit("错误：未设置 DOC2X_API_KEY 环境变量。\n"
-                 "获取 key: https://open.noedgeai.com\n"
-                 "设置 key: setx DOC2X_API_KEY \"sk-你的key\"（设置后重开终端生效）")
+        sys.exit(f"错误：未找到 Doc2X API key。\n"
+                 f"请编辑 {CREDENTIALS_FILE}，填入获取的 key（格式 sk-xxx）：\n"
+                 f'  {{ "DOC2X_API_KEY": "sk-你的key" }}\n'
+                 f"获取 key: https://open.noedgeai.com")
 
     path = args.file
     if not os.path.isfile(path):
