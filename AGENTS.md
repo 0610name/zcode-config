@@ -79,6 +79,13 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - Files placed directly in `work-summaries\` are for long-term retention. Temporary summaries go in `work-summaries\temp\` and may be cleaned up later.
 - Only create a summary file when the user explicitly asks for one; never generate summaries unprompted.
 
+## Network / Proxy
+
+- A Clash proxy runs locally at `http://127.0.0.1:7897` (mixed port), which can reach Google, GitHub, and other blocked sites.
+- For command-line tools executed locally (curl, etc.), set `http_proxy`/`https_proxy` to this address for the duration of the command.
+- Git is already configured to use this proxy for github.com only.
+- If a proxied request fails, the proxy may be off — tell the user instead of retrying indefinitely.
+
 ## File & Folder Naming
 
 - Always name new files and folders in English only (ASCII letters, digits, hyphens/underscores, dots).
