@@ -136,9 +136,17 @@ def convert_image(api_key, path):
 
 def write_result(content, assets, out_dir, stem):
     os.makedirs(out_dir, exist_ok=True)
-    if content[:2] == b"PK":  # zip payload (PDF export)
+    if content[:2] == b"PK":  # zip-family payload
         with zipfile.ZipFile(io.BytesIO(content)) as z:
-            z.extractall(out_dir)
+            names = z.namelist()
+        if "[Content_Types].xml" in names:
+            # docx exports are returned as the .docx itself (a zip of XML parts),
+            # so save it whole instead of unpacking it.
+            with open(os.path.join(out_dir, stem + ".docx"), "wb") as f:
+                f.write(content)
+        else:
+            with zipfile.ZipFile(io.BytesIO(content)) as z:
+                z.extractall(out_dir)
     else:
         with open(os.path.join(out_dir, stem + ".md"), "wb") as f:
             f.write(content)
