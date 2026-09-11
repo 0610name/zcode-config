@@ -90,6 +90,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - A Clash proxy runs locally at `http://127.0.0.1:7897` (mixed port), which can reach Google, GitHub, and other blocked sites.
 - For command-line tools executed locally (curl, etc.), set `http_proxy`/`https_proxy` to this address for the duration of the command.
 - Git is already configured to use this proxy for github.com only.
+- Browser automation (opening web pages, demos, web testing) must also go through the proxy: launch the automated browser with `--proxy-server=http://127.0.0.1:7897`. Do NOT rely on the system proxy — it is intentionally disabled on this machine (the user's Edge browser uses its own Ghelper extension and must bypass Clash).
 - If a proxied request fails, the proxy may be off — tell the user instead of retrying indefinitely.
 
 ## File & Folder Naming
