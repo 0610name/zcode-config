@@ -87,6 +87,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ## Network / Proxy
 
+- Default search engine is Google: when searching the web or opening a search page, use Google (google.com) by default.
 - A Clash proxy runs locally at `http://127.0.0.1:7897` (mixed port), which can reach Google, GitHub, and other blocked sites.
 - For command-line tools executed locally (curl, etc.), set `http_proxy`/`https_proxy` to this address for the duration of the command.
 - Git is already configured to use this proxy for github.com only.
