@@ -79,6 +79,12 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - Files placed directly in `work-summaries\` are for long-term retention. Temporary summaries go in `work-summaries\temp\` and may be cleaned up later.
 - Only create a summary file when the user explicitly asks for one; never generate summaries unprompted.
 
+## Config Backup (git)
+
+- `C:\Users\DELL\.zcode` is a git repository backing up to `https://github.com/0610name/zcode-config` (private).
+- After every modification to this file (AGENTS.md) or anything under `skills\`, commit the change and push to GitHub.
+- Keep commits small and descriptive; never force-push.
+
 ## Network / Proxy
 
 - A Clash proxy runs locally at `http://127.0.0.1:7897` (mixed port), which can reach Google, GitHub, and other blocked sites.
