@@ -2,3 +2,4 @@ cli/
 v2/
 workspace/
 *.log
+__pycache__/
